@@ -37,11 +37,10 @@ document.querySelector('#formularz').addEventListener('submit', function(event) 
     }, []);
     // check each word for minimum of three characters, otherwise disregard it
     inputArr.forEach( e => {
-        (e.length > 2) 
-        ?
-        tagArr.indexOf(e) > -1 ? localStorage.setItem(e, e) : console.log(e + ' nie wystepuje nigdzie')
-        : 
-        false           
+        console.log(e)
+        tagArr.forEach(el=>{            
+            el.indexOf(e) > -1 ? localStorage.setItem(e, e) : console.log(e + ' nie wystepuje nigdzie')
+        })       
     })
     // reload results page
     location.reload();
@@ -50,7 +49,6 @@ document.querySelector('#formularz').addEventListener('submit', function(event) 
 
 //  get all products from array, create list items and place them inside unordered list on page
 window.onload = () => {    
-    console.log(localStorage.length)
     if(localStorage.length !== 0) {
         arr.forEach( el => {
             //helper function to create items on page
@@ -67,15 +65,15 @@ window.onload = () => {
             } 
             // check if localStorage is empty
                 Object.keys(localStorage).forEach(e=>{
-                const keyVal = e.toString().toUpperCase();
-                const nameVal = (el.name).toUpperCase();
-                const normVal = el.norm.toUpperCase();
-                const catVal = el.category.toUpperCase();        
-                (nameVal.indexOf(keyVal) > -1 || catVal.indexOf(keyVal) > -1 || normVal.indexOf(keyVal) > -1)
-                ? 
-                    addItem()
-                : false;
-                })
+                    const keyVal = e.toString().toUpperCase();
+                    const nameVal = (el.name).toUpperCase();
+                    const normVal = el.norm.toUpperCase();
+                    const catVal = el.category.toUpperCase();        
+                    (nameVal.indexOf(keyVal) > -1 || catVal.indexOf(keyVal) > -1 || normVal.indexOf(keyVal) > -1)
+                    ? 
+                        addItem()
+                    : false;
+                    })
         })
     }
     else{
